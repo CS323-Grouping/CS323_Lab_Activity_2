@@ -1,4 +1,5 @@
 import threading
+import time
 from multiprocessing import Process
 
 
@@ -14,7 +15,7 @@ def inputGrades() -> list[int]:
     return res
 
 
-def compute_gwa(grades):
+def compute_gwa_thread(grades):
     gwa = sum(grades) / len(grades)
     print(f"[Thread] Calculated GWA: {gwa}")
 
@@ -23,7 +24,7 @@ grades_list = inputGrades()
 threads = []
 
 for grade in grades_list:
-    t = threading.Thread(target=compute_gwa, args=([grade],))
+    t = threading.Thread(target=compute_gwa_thread, args=([grade],))
     threads.append(t)
     t.start()
 
