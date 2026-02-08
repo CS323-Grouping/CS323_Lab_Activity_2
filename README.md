@@ -28,16 +28,10 @@ In our experiment with 1,000,000 students, **Multithreading was approximately 3x
 
 ### 2. Compare execution times between multithreading and multiprocessing
 
-<<<<<<< HEAD
-Multithreading generally had faster execution times, while multiprocessing was slower this could possibly be because  
-of the small computation cost since each task only does sum(student_grades) / len(student_grades) which is 10 numbers per student.
-It's lightweight enough that multiprocessing is slower.
-=======
 Based on our results, **Multithreading was significantly faster (0.20s)** compared to **Multiprocessing (0.64s)**.
 
 * **Multithreading:** Had lower overhead because threads share the same memory space. Even though they ran concurrently (not truly parallel due to the GIL), the fast context switching was efficient for this specific task.
 * **Multiprocessing:** Was slower because the time required to spawn processes and copy data between them exceeded the time it took to actually perform the simple GWA calculation.
->>>>>>> 3b430d7d6094f5f7d3095ede566e80f8de2b3ccc
 
 ---
 
@@ -49,14 +43,9 @@ Based on our results, **Multithreading was significantly faster (0.20s)** compar
 
 ### 4. What happens if you input a large number of grades (e.g., 1000 or 1,000,000)? Which method is faster and why?
 
-<<<<<<< HEAD
-With a large number of grades, multithreading may experience increased context switching overhead. Multiprocessing may perform better for CPU-bound calculations because it uses multiple cores. However, creating too many processes can also increase overhead. A process pool would be more efficient for large inputs. But for our program we tested 1000 students with 10 subjects each so a total of 10000 grades
-and the results show that the execution time of Multithreading is faster than the execution time of Multiprocessing.
-=======
 When processing a massive dataset (1,000,000 students), **Multithreading remained faster**.
 
 * **Reason:** The "task payload" (calculating the average of 10 integers) is extremely small. The system overhead for Multiprocessing (pickling data, starting processes) is fixed and relatively high. Unless the calculation per student is complex (e.g., heavy matrix math), the overhead of Multiprocessing will always make it slower than the lightweight threads for simple arithmetic.
->>>>>>> 3b430d7d6094f5f7d3095ede566e80f8de2b3ccc
 
 ---
 
@@ -69,13 +58,7 @@ When processing a massive dataset (1,000,000 students), **Multithreading remaine
 
 ### 6. How did your group apply creative coding or algorithmic solutions in this lab?
 
-<<<<<<< HEAD
-Our group implemented an RNG for grades but with optional manual inputs
-, modular function design, execution time benchmarking, and improved output formatting. 
-We structured the program for readability and easier navigation for modularity. 
-=======
 We optimized the performance by implementing a **Chunking and Pooling Strategy**:
 
 1. **Data Transformation:** Instead of processing raw numbers, we grouped grades into "Student" chunks (lists of 10 subjects) in `main.py`.
 2. **Worker Pools:** In `multi.py` and `threads.py`, we replaced the inefficient "one-process-per-item" approach with a fixed **Pool of Workers** (mapped to CPU cores). This prevented system crashing and allowed us to scale to 10 million grades effortlessly.
->>>>>>> 3b430d7d6094f5f7d3095ede566e80f8de2b3ccc
