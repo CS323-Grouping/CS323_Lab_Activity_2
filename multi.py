@@ -1,25 +1,26 @@
 import time
-from multiprocessing import Process
+from multiprocessing import Pool, cpu_count
 
+def compute_gwa_mp(student_grades):
+    """Calculates GWA for a single student."""
+    return sum(student_grades) / len(student_grades)
 
-def compute_gwa_mp(grades):
-    gwa = sum(grades) / len(grades)
-    print(f"[Process] Calculated GWA: {gwa}")
-
-
-processes = []
-
-def startMulti(grades_list):
-
+def startMulti(students):
     start = time.time()
-    for grade in grades_list:
-        p = Process(target=compute_gwa_mp, args=([grade],))
-        processes.append(p)
-        p.start()
+    
+    # Use all available CPU cores
+    num_processes = cpu_count()
+    
+    # Create a Pool of worker processes
+    with Pool(processes=num_processes) as pool:
+        # map() sends the list of students to the workers automatically
+        # It returns a list of results (GWAs) in order
+        results = pool.map(compute_gwa_mp, students)
 
-    for p in processes:
-        p.join()
+    # Optional: Verify results
+    # print(f"First 5 GWAs: {results[:5]}")
 
     end = time.time()
-
-    print(f"Multiprocess ended in {end-start}")
+    
+    print(f"Processed {len(students)} students using {num_processes} cores.")
+    print(f"Execution Time: {end - start:.6f} seconds")
