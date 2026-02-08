@@ -62,5 +62,4 @@ We optimized the performance by implementing a **Chunking and Pooling Strategy**
 
 1. **Data Transformation:** Instead of processing raw numbers, we grouped grades into "Student" chunks (lists of 10 subjects) in `main.py`.
 2. **Worker Pools:** In `multi.py` and `threads.py`, we replaced the inefficient "one-process-per-item" approach with a fixed **Pool of Workers** (mapped to CPU cores). This prevented system crashing and allowed us to scale to 10 million grades effortlessly.
-
-We also added a custom function that generates a set amount of grades randomly. And a custom function to read the grades from a file or have a manual input of grades.
+3. **Grade Generation:** We also added a custom function that generates a set amount of grades randomly. And a custom function to read the grades from a file or have a manual input of grades.
