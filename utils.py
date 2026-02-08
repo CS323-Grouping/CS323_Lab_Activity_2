@@ -1,6 +1,7 @@
 import os
+from typing import List
 
-def inputGrades() -> list[int]:
+def inputGrades() -> List[int]:
     res = []
     ans = input("Use Local File (y/n): ")
 
@@ -18,12 +19,16 @@ def inputGrades() -> list[int]:
     else:
         print("Manual input mode...")
         while True:
-            a = input("Enter Grade (x for exit): ")
+            a = input("Enter Grade (0-100, x for exit): ")
             if a.lower() == "x":
                 break
             if a.isdigit():
-                res.append(int(a))
+                grade = int(a)
+                if 0 <= grade <= 100:
+                    res.append(grade)
+                else:
+                    print("Invalid input. Grade must be between 0 and 100.")
             else:
-                print("Invalid input.")
+                print("Invalid input. Please enter a number.")
 
     return res
