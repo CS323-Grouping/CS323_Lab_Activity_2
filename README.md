@@ -28,7 +28,9 @@ Multiprocessing demonstrates true parallelism because each process runs in its o
 
 ### 2. Compare execution times between multithreading and multiprocessing
 
-Multithreading generally has lower overhead but does not achieve true parallelism for CPU-bound tasks due to the GIL. Multiprocessing may have higher startup overhead but performs better for CPU-intensive workloads when multiple cores are available.
+Multithreading generally had faster execution times, while multiprocessing was slower this could possibly be because  
+of the small computation cost since each task only does sum(student_grades) / len(student_grades) which is 10 numbers per student.
+It's lightweight enough that multiprocessing is slower.
 
 ---
 
@@ -40,7 +42,8 @@ No. Python threads cannot achieve true parallelism for CPU-bound tasks because o
 
 ### 4. What happens if you input a large number of grades (e.g., 1000)? Which method is faster and why?
 
-With a large number of grades, multithreading may experience increased context switching overhead. Multiprocessing may perform better for CPU-bound calculations because it uses multiple cores. However, creating too many processes can also increase overhead. A process pool would be more efficient for large inputs.
+With a large number of grades, multithreading may experience increased context switching overhead. Multiprocessing may perform better for CPU-bound calculations because it uses multiple cores. However, creating too many processes can also increase overhead. A process pool would be more efficient for large inputs. But for our program we tested 1000 students with 10 subjects each so a total of 10000 grades
+and the results show that the execution time of Multithreading is faster than the execution time of Multiprocessing.
 
 ---
 
@@ -53,4 +56,6 @@ Multithreading is better for I/O-bound tasks because threads can run while waiti
 
 ### 6. How did your group apply creative coding or algorithmic solutions in this lab?
 
-Our group implemented dynamic user input handling, modular function design, execution time benchmarking, and improved output formatting. We structured the program for readability and compared execution behavior systematically.
+Our group implemented an RNG for grades but with optional manual inputs
+, modular function design, execution time benchmarking, and improved output formatting. 
+We structured the program for readability and easier navigation for modularity. 

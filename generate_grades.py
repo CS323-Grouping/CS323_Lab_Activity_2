@@ -1,7 +1,7 @@
 import random
 import os
 
-def generate_grades_file(filename="grades.txt", num_students=1000000, subjects_per_student=10):
+def generate_grades_file(filename="grades.txt", num_students=1000, subjects_per_student=10):
     # 1. Define folder name and create it if it doesn't exist
     folder_name = "grades"
     os.makedirs(folder_name, exist_ok=True)
