@@ -1,48 +1,26 @@
-import threading
-from multiprocessing import Process
+import multi
+import threads
+import utils
+import time
 
+if __name__ == "__main__":
+    raw_grades = utils.inputGrades()
+    
+    if not raw_grades:
+        print("No grades found.")
+        exit()
 
-def inputGrades() -> list[int]:
-    res = []
-    while True:
-        a = input("Enter Input (x for exit) : ")
+    subjects_per_student = 10
+    students = [raw_grades[i:i + subjects_per_student] 
+                for i in range(0, len(raw_grades), subjects_per_student)]
 
-        if a == "x":
-            break
-        res.append(int(a))
+    print(f"\nLoaded {len(raw_grades)} grades.")
+    print(f"Identified {len(students)} students.\n")
 
-    return res
+    print("--- Multithreading (4 Worker Threads) ---")
+    threads.startThreading(students)
+    
+    print("\n" + "="*30 + "\n")
 
-
-def compute_gwa(grades):
-    gwa = sum(grades) / len(grades)
-    print(f"[Thread] Calculated GWA: {gwa}")
-
-grades_list = inputGrades()
-
-threads = []
-
-for grade in grades_list:
-    t = threading.Thread(target=compute_gwa, args=([grade],))
-    threads.append(t)
-    t.start()
-
-for t in threads:
-    t.join()
-
-def compute_gwa_mp(grades):
-    gwa = sum(grades) / len(grades)
-    print(f"[Process] Calculated GWA: {gwa}")
-
-grades_list = inputGrades()
-
-processes = []
-for grade in grades_list:
-    p = Process(target=compute_gwa_mp, args=([grade],))
-    processes.append(p)
-    p.start()
-
-for p in processes:
-    p.join()
-
-
+    print("--- Multiprocessing (Pool) ---")
+    multi.startMulti(students)
