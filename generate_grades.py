@@ -6,8 +6,7 @@ def generate_grades_file(
     num_students=1000,
     subjects_per_student=10,
     min_grade=70,
-    max_grade=100,
-    noise_rate=0.02
+    max_grade=100
 ):
     folder_name = "grades"
     os.makedirs(folder_name, exist_ok=True)
@@ -21,16 +20,12 @@ def generate_grades_file(
     print(f"Students            : {num_students}")
     print(f"Subjects per student: {subjects_per_student}")
     print(f"Grade range         : {min_grade} - {max_grade}")
-    print(f"Noise rate          : {noise_rate * 100:.1f}%")
     print("-" * 50)
 
     with open(filepath, "w") as f:
         for _ in range(total_grades):
-            if random.random() < noise_rate:
-                f.write("NA\n")      
-            else:
-                grade = random.randint(min_grade, max_grade)
-                f.write(f"{grade}\n")
+            grade = random.randint(min_grade, max_grade)
+            f.write(f"{grade}\n")
 
     print(f"File generated successfully!")
     print(f"Total values written: {total_grades}")
