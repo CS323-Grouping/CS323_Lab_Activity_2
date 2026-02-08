@@ -1,6 +1,7 @@
 import os
+from typing import List
 
-def inputGrades() -> list[int]:
+def inputGrades() -> List[int]:
     res = []
     ans = input("Do you want to use the local grades file? (y/n): ")
 
@@ -23,7 +24,11 @@ def inputGrades() -> list[int]:
             if a.lower() == "x":
                 break
             if a.isdigit():
-                res.append(int(a))
+                grade = int(a)
+                if 0 <= grade <= 100:
+                    res.append(grade)
+                else:
+                    print("Invalid input. Grade must be between 0 and 100.")
             else:
                 print("⚠️ Invalid input. Please enter a number between 0-100.")
 

@@ -2,9 +2,10 @@ import multi
 import threads
 import utils
 import time
+from typing import List
 
 if __name__ == "__main__":
-    raw_grades = utils.inputGrades()
+    raw_grades: List[int] = utils.inputGrades()
     
     if not raw_grades:
         print("No grades found.")
